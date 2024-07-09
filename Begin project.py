@@ -6,7 +6,7 @@ A = 2 #left
 S = 3 #down
 D = 4 #right
 
-direction = (0, 0) #down
+direction = (0, 1) #right
 
 list_numbers = [(2, 4), (5, 7)]
 new_tuple = (1, 2)
@@ -17,13 +17,13 @@ def check_tuple(list_numbers: List[tuple[int, int]], new_tuple: Tuple[int, int])
         raise tuple_exists_error("game over")
 
 def change_direction(directionWASD, direction):
-    if directionWASD == 1 and direction != (0, 0):
+    if directionWASD == 1 and direction != (0, 1):
         direction = (1, 1)
-    elif directionWASD == 2 and direction != (1, 0):
+    elif directionWASD == 2 and direction != (-1, 0):
         direction = (0, 1)
-    elif directionWASD == 3 and direction != (1, 1):
+    elif directionWASD == 3 and direction != (0, -1):
         direction = (0, 0)
-    elif directionWASD == 4 and direction != (0, 1):
+    elif directionWASD == 4 and direction != (1, 0):
         direction = (1, 0)
     print(direction)
 

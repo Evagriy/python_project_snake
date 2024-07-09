@@ -6,7 +6,7 @@ A = 2 #left
 S = 3 #down
 D = 4 #right
 
-direction = (1, 1) #up
+direction = (0, 0) #down
 
 list_numbers = [(2, 4), (5, 7)]
 new_tuple = (1, 2)

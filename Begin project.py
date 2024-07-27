@@ -51,7 +51,7 @@ def add_tuple(list_numbers: List[Tuple[int, int]], new_tuple: Tuple[int, int], e
         return
 
     if eating:
-        print("Похавал")
+        print("Похавал.")
     elif eating == False:
         del list_numbers[0]
         print("Голодуха")

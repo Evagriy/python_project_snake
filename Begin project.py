@@ -1,5 +1,9 @@
+import sys
 from typing import List, Tuple
 from exceptions import tuple_exists_error, out_of_bounds_error
+import pygame
+
+pygame.init()
 
 W = 1 #up
 A = 2 #left
@@ -8,10 +12,34 @@ D = 4 #right
 
 direction = (0, 1) #right
 
+screen_area = (602, 602)
 play_area = (50, 50)
 list_numbers = [(2, 4), (5, 7)]
 new_tuple = (1, 2)
 eating:  bool = True
+
+
+screen = pygame.display.set_mode(screen_area)
+pygame.display.set_caption("Макароны и сосиски  0_o")
+jpg = pygame.image.load("snake.jpg")
+pygame.display.set_icon(jpg)
+screen.fill((255, 255, 255))
+
+width = heigth = 10
+green = (0, 0, 0)
+margin = 2
+
+while True:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            quit()
+    for coloumn in range(play_area[0]):
+        for row in range(play_area[1]):
+            x = coloumn * width + (coloumn + 1) * margin
+            y = row * heigth + (row + 1) * margin
+            pygame.draw.rect(screen, green,(x, y, width, heigth))
+    pygame.display.update()
+
 
 def check_tuple(list_numbers: List[tuple[int, int]], new_tuple: Tuple[int, int]) -> bool:
     if new_tuple in list_numbers:
@@ -45,10 +73,7 @@ def add_tuple(list_numbers: List[Tuple[int, int]], new_tuple: Tuple[int, int], e
         print(f"tuple {new_tuple} add in list.")
     except tuple_exists_error as e:
         print(e)
-        return
-    except out_of_bounds_error as e:
-        print(e)
-        return
+        return 
 
     if eating:
         print("Похавал.")

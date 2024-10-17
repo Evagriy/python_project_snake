@@ -18,7 +18,6 @@ list_numbers = [(2, 4), (5, 7)]
 new_tuple = (1, 2)
 eating:  bool = True
 
-
 screen = pygame.display.set_mode(screen_area)
 pygame.display.set_caption("Макароны и сосиски  0_o")
 jpg = pygame.image.load("snake.jpg")

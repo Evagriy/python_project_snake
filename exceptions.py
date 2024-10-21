@@ -1,6 +1,6 @@
-class tuple_exists_error(Exception):
+class TupleExistsError(Exception):
     pass
 
-class out_of_bounds_error(Exception):
+class OutOfBoundsError(Exception):
     pass
 

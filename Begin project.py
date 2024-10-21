@@ -1,6 +1,6 @@
 import sys
 from typing import List, Tuple
-from exceptions import tuple_exists_error, out_of_bounds_error
+from exceptions import TupleExistsError, OutOfBoundsError
 import pygame
 
 pygame.init()
@@ -12,37 +12,44 @@ D = 4 #right
 
 direction = (0, 1) #right
 
-screen_area = (602, 602)
-play_area = (50, 50)
+screen_area = (500, 500)
+play_area = (20, 20)
 list_numbers = [(2, 4), (5, 7)]
 new_tuple = (1, 2)
 eating:  bool = True
 
 screen = pygame.display.set_mode(screen_area)
-pygame.display.set_caption("Макароны и сосиски  0_o")
+pygame.display.set_caption("ИГРА ЗМЕЙКА  0_o")
 jpg = pygame.image.load("snake.jpg")
 pygame.display.set_icon(jpg)
 screen.fill((255, 255, 255))
 
-width = heigth = 10
-green = (0, 0, 0)
-margin = 2
+turquoise = (0, 255, 204)
+white = (255, 255, 255)
+blue = (204, 255, 255)
+width = heigth = 20
+margin = 1
 
 while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             quit()
+    screen.fill(turquoise)
     for coloumn in range(play_area[0]):
         for row in range(play_area[1]):
-            x = coloumn * width + (coloumn + 1) * margin
-            y = row * heigth + (row + 1) * margin
-            pygame.draw.rect(screen, green,(x, y, width, heigth))
+            if (row + coloumn) % 2 == 0:
+                color = blue
+            else:
+                color = white
+            x = 40 + coloumn * width + margin * (coloumn + 1)
+            y = 40 + row * heigth + margin * (row + 1)
+            pygame.draw.rect(screen, color,(x, y, width, heigth))
     pygame.display.update()
 
 
 def check_tuple(list_numbers: List[tuple[int, int]], new_tuple: Tuple[int, int]) -> bool:
     if new_tuple in list_numbers:
-        raise tuple_exists_error("game over")
+        raise TupleExistsError("game over")
 
 def is_within_bounds(new_tuple: Tuple[int, int], play_area: Tuple[int, int]) -> bool:
     x, y = new_tuple
@@ -64,13 +71,13 @@ def change_direction(directionWASD, direction):
 
 def add_tuple(list_numbers: List[Tuple[int, int]], new_tuple: Tuple[int, int], eating: bool, play_area: Tuple[int, int]) -> None:
     if not is_within_bounds(new_tuple, play_area):
-        raise out_of_bounds_error(f"Tuple {new_tuple} is out of bounds for play area {play_area}")
+        raise OutOfBoundsError(f"Tuple {new_tuple} is out of bounds for play area {play_area}")
 
     try:
         check_tuple(list_numbers, new_tuple)
         list_numbers.append(new_tuple)
         print(f"tuple {new_tuple} add in list.")
-    except tuple_exists_error as e:
+    except TupleExistsError as e:
         print(e)
         return 
 
@@ -84,6 +91,6 @@ def add_tuple(list_numbers: List[Tuple[int, int]], new_tuple: Tuple[int, int], e
 
 try:
     add_tuple(list_numbers, new_tuple, eating, play_area)
-except out_of_bounds_error as e:
+except OutOfBoundsError as e:
     print(e)
 change_direction(A, direction)

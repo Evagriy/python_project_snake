@@ -34,6 +34,7 @@ while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             quit()
+
     screen.fill(turquoise)
     for coloumn in range(play_area[0]):
         for row in range(play_area[1]):
@@ -46,6 +47,23 @@ while True:
             pygame.draw.rect(screen, color,(x, y, width, heigth))
     pygame.display.update()
 
+    keys = pygame.key.get_pressed()
+
+    def change_direction(direction, keys):
+        if keys[pygame.K_UP] and direction != (0, 1):
+            direction = (0, -1)
+        elif keys[pygame.K_LEFT] and direction != (1, 0):
+            direction = (-1, 0)
+        elif keys[pygame.K_DOWN] and direction != (0, -1):
+            direction = (0, 1)
+        elif keys[pygame.K_RIGHT] and direction != (-1, 0):
+            direction = (1, 0)
+        print()
+        print("change of direction to:")
+        print(direction)
+
+
+
 
 def check_tuple(list_numbers: List[tuple[int, int]], new_tuple: Tuple[int, int]) -> bool:
     if new_tuple in list_numbers:
@@ -56,18 +74,7 @@ def is_within_bounds(new_tuple: Tuple[int, int], play_area: Tuple[int, int]) -> 
     width, height = play_area
     return 0 <= x < width and 0 <= y < height
 
-def change_direction(directionWASD, direction):
-    if directionWASD == 1 and direction != (0, 1):
-        direction = (0, -1)
-    elif directionWASD == 2 and direction != (1, 0):
-        direction = (-1, 0)
-    elif directionWASD == 3 and direction != (0, -1):
-        direction = (0, 1)
-    elif directionWASD == 4 and direction != (-1, 0):
-        direction = (1, 0)
-    print()
-    print("change of direction to:")
-    print(direction)
+
 
 def add_tuple(list_numbers: List[Tuple[int, int]], new_tuple: Tuple[int, int], eating: bool, play_area: Tuple[int, int]) -> None:
     if not is_within_bounds(new_tuple, play_area):
@@ -89,8 +96,10 @@ def add_tuple(list_numbers: List[Tuple[int, int]], new_tuple: Tuple[int, int], e
 
     print(list_numbers)
 
+
+
 try:
     add_tuple(list_numbers, new_tuple, eating, play_area)
 except OutOfBoundsError as e:
     print(e)
-change_direction(A, direction)
+change_direction(direction, keys)

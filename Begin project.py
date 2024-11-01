@@ -103,4 +103,4 @@ try:
 except OutOfBoundsError as e:
     print(e)
 change_direction(direction, keys)
-""" qwerty """
+""" потка номер 2 """

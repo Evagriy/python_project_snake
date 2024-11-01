@@ -2,6 +2,7 @@ import sys
 from typing import List, Tuple
 from exceptions import TupleExistsError, OutOfBoundsError
 import pygame
+import main
 
 pygame.init()
 
@@ -97,9 +98,9 @@ def add_tuple(list_numbers: List[Tuple[int, int]], new_tuple: Tuple[int, int], e
     print(list_numbers)
 
 
-
 try:
     add_tuple(list_numbers, new_tuple, eating, play_area)
 except OutOfBoundsError as e:
     print(e)
 change_direction(direction, keys)
+""" qwerty """

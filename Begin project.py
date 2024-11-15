@@ -1,6 +1,7 @@
 import sys
 from typing import List, Tuple
 from exceptions import TupleExistsError, OutOfBoundsError
+from pygame.locals import KEYDOWN, K_UP, K_DOWN, K_LEFT, K_RIGHT
 import pygame
 import main
 
@@ -31,12 +32,7 @@ blue = (204, 255, 255)
 width = heigth = 20
 margin = 1
 
-while True:
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            quit()
-
-    screen.fill(turquoise)
+def field_rendering():
     for coloumn in range(play_area[0]):
         for row in range(play_area[1]):
             if (row + coloumn) % 2 == 0:
@@ -46,22 +42,35 @@ while True:
             x = 40 + coloumn * width + margin * (coloumn + 1)
             y = 40 + row * heigth + margin * (row + 1)
             pygame.draw.rect(screen, color,(x, y, width, heigth))
+
+keys = pygame.key.get_pressed()
+def change_direction(direction, event):
+    if event.key == K_UP and direction != (0, 1):
+        return (0, -1)
+    elif event.key == K_LEFT and direction != (1, 0):
+        return (-1, 0)
+    elif event.key == K_DOWN and direction != (0, -1):
+        return (0, 1)
+    elif event.key == K_RIGHT and direction != (-1, 0):
+        return (1, 0)
+    return direction
+
+while True:
+    for event in pygame.event.get():
+        # проверка на нажатие кнопки и передать параметром чэнж дирекшн в эту проверку
+
+        if event.type == pygame.QUIT:
+            quit()
+        elif event.type == KEYDOWN:
+            direction = change_direction(direction, event)
+            print(f"New direction: {direction}")
+
+    screen.fill(turquoise)
+
+    field_rendering()
+
     pygame.display.update()
 
-    keys = pygame.key.get_pressed()
-
-    def change_direction(direction, keys):
-        if keys[pygame.K_UP] and direction != (0, 1):
-            direction = (0, -1)
-        elif keys[pygame.K_LEFT] and direction != (1, 0):
-            direction = (-1, 0)
-        elif keys[pygame.K_DOWN] and direction != (0, -1):
-            direction = (0, 1)
-        elif keys[pygame.K_RIGHT] and direction != (-1, 0):
-            direction = (1, 0)
-        print()
-        print("change of direction to:")
-        print(direction)
 
 
 
@@ -103,4 +112,3 @@ try:
 except OutOfBoundsError as e:
     print(e)
 change_direction(direction, keys)
-### исправил говно ###

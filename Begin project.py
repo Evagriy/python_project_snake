@@ -108,6 +108,10 @@ def game_loop():
             print("Game Over: Snake hit the wall!")
             return
 
+        if snake[0] in snake[1:]:
+            print("Game Over: Snake hit itself!")
+            return
+
         if snake[0] == food:
             eating = True
             food = spawn_food(play_area, snake)
